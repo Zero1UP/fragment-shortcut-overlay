@@ -32,7 +32,7 @@ namespace fragment_shortcut_overlay
         bool controllerConnected = false;
 
         Mem m = new Mem();
-        private const string PCSX2PROCESSNAME = "pcsx2dis";
+        private const string PCSX2PROCESSNAME = "pcsx2";
         bool pcsx2Running = false;
         public frm_Main()
         {
