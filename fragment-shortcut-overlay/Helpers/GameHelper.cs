@@ -11,18 +11,6 @@ namespace fragment_shortcut_overlay
         public const string CONNECTED_TO_AS_ADDRESS = "206F92F0";
         //This points to some player information. I dunno, I stole it from the player bar code. 
         public const string LOGGED_IN_OFFLINE_MODE = "20734740";
-
-        //Addresses to Check to verify the version of the game we are on
-        //The check should contain the text roo
-        //272 = Vanilla
-        //656 = B7
-        public static Dictionary<int, string> gameVersionData = new Dictionary<int, string>()
-        {
-            {272,"20C4029C" },
-            {656 ,"20C4011C"},
-            {0,"20C403AC" }
-        };
-
         public const string LUI_HEAP = "20100120";
 
         public enum CurrentElf
