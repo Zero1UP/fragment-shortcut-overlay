@@ -42,7 +42,6 @@
             this.pictureBox4 = new System.Windows.Forms.PictureBox();
             this.pictureBox3 = new System.Windows.Forms.PictureBox();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            this.tmr_GetGameVersion = new System.Windows.Forms.Timer(this.components);
             this.pnl_Buttons.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pct_TriggerButton)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
@@ -177,12 +176,6 @@
             this.pictureBox1.TabIndex = 1;
             this.pictureBox1.TabStop = false;
             // 
-            // tmr_GetGameVersion
-            // 
-            this.tmr_GetGameVersion.Enabled = true;
-            this.tmr_GetGameVersion.Interval = 1;
-            this.tmr_GetGameVersion.Tick += new System.EventHandler(this.tmr_GetGameVersion_Tick);
-            // 
             // frm_Main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -217,7 +210,6 @@
         private System.Windows.Forms.PictureBox pictureBox4;
         private System.Windows.Forms.Panel pnl_Buttons;
         private System.Windows.Forms.PictureBox pct_TriggerButton;
-        private System.Windows.Forms.Timer tmr_GetGameVersion;
     }
 }
 
