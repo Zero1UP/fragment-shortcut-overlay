@@ -74,82 +74,166 @@ namespace fragment_shortcut_overlay
                 if (pcsx2Running)
                 {
                     m.OpenProcess(PCSX2PROCESSNAME + ".exe");
-
-                    if (m.ReadByte(GameHelper.CONNECTED_TO_AS_ADDRESS) == 1)
+                    if(GameHelper.GetCurrentElfFile(m.ReadByte(GameHelper.LUI_HEAP)) == GameHelper.CurrentElf.ONLINE)
                     {
-                        var state = controller.GetState();
-
-                        var buttonsPressed = state.Gamepad.Buttons;
-                       
-                        if (buttonsPressed.HasFlag(GamepadButtonFlags.LeftShoulder))
+                        gGameOffset = m.ReadInt(GameHelper.ONLINE_PLAYER_POINTER) + 0x20000000;
+                        if (m.ReadByte(GameHelper.CONNECTED_TO_AS_ADDRESS) == 1)
                         {
-                            if (pressedInit == false)
+                            var state = controller.GetState();
+
+                            var buttonsPressed = state.Gamepad.Buttons;
+
+                            if (buttonsPressed.HasFlag(GamepadButtonFlags.LeftShoulder))
                             {
-                                pct_TriggerButton.Image = Properties.Resources.L1;
-                                pnl_Buttons.Visible = true;
-                                processGameData(GameHelper.SHORTCUT_L1_CIRCLE_TYPE_ID, GameHelper.SHORTCUT_L1_TRIANGLE_TYPE_ID, GameHelper.SHORTCUT_L1_SQUARE_TYPE_ID,
-                                    GameHelper.SHORTCUT_L1_X_TYPE_ID, GameHelper.SHORTCUT_L1_CIRCLE_CATEGORY_ID, GameHelper.SHORTCUT_L1_TRIANGLE_CATEGORY_ID,
-                                    GameHelper.SHORTCUT_L1_SQUARE_CATEGORY_ID, GameHelper.SHORTCUT_L1_X_CATEGORY_ID, GameHelper.SHORTCUT_L1_CIRCLE_ID,
-                                    GameHelper.SHORTCUT_L1_TRIANGLE_ID, GameHelper.SHORTCUT_L1_SQUARE_ID, GameHelper.SHORTCUT_L1_X_ID, GameHelper.SHORTCUT_L1_CIRCLE_MESSAGE,
-                                    GameHelper.SHORTCUT_L1_TRIANGLE_MESSAGE, GameHelper.SHORTCUT_L1_SQUARE_MESSAGE, GameHelper.SHORTCUT_L1_X_MESSAGE);
+                                if (pressedInit == false)
+                                {
+                                    pct_TriggerButton.Image = Properties.Resources.L1;
+                                    pnl_Buttons.Visible = true;
+                                    processGameData(GameHelper.SHORTCUT_L1_CIRCLE_TYPE_ID, GameHelper.SHORTCUT_L1_TRIANGLE_TYPE_ID, GameHelper.SHORTCUT_L1_SQUARE_TYPE_ID,
+                                        GameHelper.SHORTCUT_L1_X_TYPE_ID, GameHelper.SHORTCUT_L1_CIRCLE_CATEGORY_ID, GameHelper.SHORTCUT_L1_TRIANGLE_CATEGORY_ID,
+                                        GameHelper.SHORTCUT_L1_SQUARE_CATEGORY_ID, GameHelper.SHORTCUT_L1_X_CATEGORY_ID, GameHelper.SHORTCUT_L1_CIRCLE_ID,
+                                        GameHelper.SHORTCUT_L1_TRIANGLE_ID, GameHelper.SHORTCUT_L1_SQUARE_ID, GameHelper.SHORTCUT_L1_X_ID, GameHelper.SHORTCUT_L1_CIRCLE_MESSAGE,
+                                        GameHelper.SHORTCUT_L1_TRIANGLE_MESSAGE, GameHelper.SHORTCUT_L1_SQUARE_MESSAGE, GameHelper.SHORTCUT_L1_X_MESSAGE);
 
 
-                                pressedInit = true;
+                                    pressedInit = true;
+                                }
+
                             }
-
-                        }
-                        else if (state.Gamepad.LeftTrigger > 10)
-                        {
-                            if (pressedInit == false)
+                            else if (state.Gamepad.LeftTrigger > 10)
                             {
-                                pct_TriggerButton.Image = Properties.Resources.L2;
-                                pnl_Buttons.Visible = true;
-                                processGameData(GameHelper.SHORTCUT_L2_CIRCLE_TYPE_ID, GameHelper.SHORTCUT_L2_TRIANGLE_TYPE_ID, GameHelper.SHORTCUT_L2_SQUARE_TYPE_ID,
-                                    GameHelper.SHORTCUT_L2_X_TYPE_ID, GameHelper.SHORTCUT_L2_CIRCLE_CATEGORY_ID, GameHelper.SHORTCUT_L2_TRIANGLE_CATEGORY_ID,
-                                    GameHelper.SHORTCUT_L2_SQUARE_CATEGORY_ID, GameHelper.SHORTCUT_L2_X_CATEGORY_ID, GameHelper.SHORTCUT_L2_CIRCLE_ID,
-                                    GameHelper.SHORTCUT_L2_TRIANGLE_ID, GameHelper.SHORTCUT_L2_SQUARE_ID, GameHelper.SHORTCUT_L2_X_ID, GameHelper.SHORTCUT_L2_CIRCLE_MESSAGE,
-                                    GameHelper.SHORTCUT_L2_TRIANGLE_MESSAGE, GameHelper.SHORTCUT_L2_SQUARE_MESSAGE, GameHelper.SHORTCUT_L2_X_MESSAGE);
+                                if (pressedInit == false)
+                                {
+                                    pct_TriggerButton.Image = Properties.Resources.L2;
+                                    pnl_Buttons.Visible = true;
+                                    processGameData(GameHelper.SHORTCUT_L2_CIRCLE_TYPE_ID, GameHelper.SHORTCUT_L2_TRIANGLE_TYPE_ID, GameHelper.SHORTCUT_L2_SQUARE_TYPE_ID,
+                                        GameHelper.SHORTCUT_L2_X_TYPE_ID, GameHelper.SHORTCUT_L2_CIRCLE_CATEGORY_ID, GameHelper.SHORTCUT_L2_TRIANGLE_CATEGORY_ID,
+                                        GameHelper.SHORTCUT_L2_SQUARE_CATEGORY_ID, GameHelper.SHORTCUT_L2_X_CATEGORY_ID, GameHelper.SHORTCUT_L2_CIRCLE_ID,
+                                        GameHelper.SHORTCUT_L2_TRIANGLE_ID, GameHelper.SHORTCUT_L2_SQUARE_ID, GameHelper.SHORTCUT_L2_X_ID, GameHelper.SHORTCUT_L2_CIRCLE_MESSAGE,
+                                        GameHelper.SHORTCUT_L2_TRIANGLE_MESSAGE, GameHelper.SHORTCUT_L2_SQUARE_MESSAGE, GameHelper.SHORTCUT_L2_X_MESSAGE);
 
 
-                                pressedInit = true;
+                                    pressedInit = true;
+                                }
                             }
-                        }
-                        else if (buttonsPressed.HasFlag(GamepadButtonFlags.RightShoulder))
-                        {
-                            if (pressedInit == false)
+                            else if (buttonsPressed.HasFlag(GamepadButtonFlags.RightShoulder))
                             {
-                                pct_TriggerButton.Image = Properties.Resources.R1;
-                                pnl_Buttons.Visible = true;
-                                processGameData(GameHelper.SHORTCUT_R1_CIRCLE_TYPE_ID, GameHelper.SHORTCUT_R1_TRIANGLE_TYPE_ID, GameHelper.SHORTCUT_R1_SQUARE_TYPE_ID,
-                                    GameHelper.SHORTCUT_R1_X_TYPE_ID, GameHelper.SHORTCUT_R1_CIRCLE_CATEGORY_ID, GameHelper.SHORTCUT_R1_TRIANGLE_CATEGORY_ID,
-                                    GameHelper.SHORTCUT_R1_SQUARE_CATEGORY_ID, GameHelper.SHORTCUT_R1_X_CATEGORY_ID, GameHelper.SHORTCUT_R1_CIRCLE_ID,
-                                    GameHelper.SHORTCUT_R1_TRIANGLE_ID, GameHelper.SHORTCUT_R1_SQUARE_ID, GameHelper.SHORTCUT_R1_X_ID, GameHelper.SHORTCUT_R1_CIRCLE_MESSAGE,
-                                    GameHelper.SHORTCUT_R1_TRIANGLE_MESSAGE, GameHelper.SHORTCUT_R1_SQUARE_MESSAGE, GameHelper.SHORTCUT_R1_X_MESSAGE);
+                                if (pressedInit == false)
+                                {
+                                    pct_TriggerButton.Image = Properties.Resources.R1;
+                                    pnl_Buttons.Visible = true;
+                                    processGameData(GameHelper.SHORTCUT_R1_CIRCLE_TYPE_ID, GameHelper.SHORTCUT_R1_TRIANGLE_TYPE_ID, GameHelper.SHORTCUT_R1_SQUARE_TYPE_ID,
+                                        GameHelper.SHORTCUT_R1_X_TYPE_ID, GameHelper.SHORTCUT_R1_CIRCLE_CATEGORY_ID, GameHelper.SHORTCUT_R1_TRIANGLE_CATEGORY_ID,
+                                        GameHelper.SHORTCUT_R1_SQUARE_CATEGORY_ID, GameHelper.SHORTCUT_R1_X_CATEGORY_ID, GameHelper.SHORTCUT_R1_CIRCLE_ID,
+                                        GameHelper.SHORTCUT_R1_TRIANGLE_ID, GameHelper.SHORTCUT_R1_SQUARE_ID, GameHelper.SHORTCUT_R1_X_ID, GameHelper.SHORTCUT_R1_CIRCLE_MESSAGE,
+                                        GameHelper.SHORTCUT_R1_TRIANGLE_MESSAGE, GameHelper.SHORTCUT_R1_SQUARE_MESSAGE, GameHelper.SHORTCUT_R1_X_MESSAGE);
 
 
-                                pressedInit = true;
+                                    pressedInit = true;
+                                }
+
                             }
-
-                        }
-                        else if (state.Gamepad.RightTrigger > 10)
-                        {
-                            if (pressedInit == false)
+                            else if (state.Gamepad.RightTrigger > 10)
                             {
-                                pct_TriggerButton.Image = Properties.Resources.R2;
-                                pnl_Buttons.Visible = true;
-                                processGameData(GameHelper.SHORTCUT_R2_CIRCLE_TYPE_ID, GameHelper.SHORTCUT_R2_TRIANGLE_TYPE_ID, GameHelper.SHORTCUT_R2_SQUARE_TYPE_ID,
-                                    GameHelper.SHORTCUT_R2_X_TYPE_ID, GameHelper.SHORTCUT_R2_CIRCLE_CATEGORY_ID, GameHelper.SHORTCUT_R2_TRIANGLE_CATEGORY_ID,
-                                    GameHelper.SHORTCUT_R2_SQUARE_CATEGORY_ID, GameHelper.SHORTCUT_R2_X_CATEGORY_ID, GameHelper.SHORTCUT_R2_CIRCLE_ID,
-                                    GameHelper.SHORTCUT_R2_TRIANGLE_ID, GameHelper.SHORTCUT_R2_SQUARE_ID, GameHelper.SHORTCUT_R2_X_ID, GameHelper.SHORTCUT_R2_CIRCLE_MESSAGE,
-                                    GameHelper.SHORTCUT_R2_TRIANGLE_MESSAGE, GameHelper.SHORTCUT_R2_SQUARE_MESSAGE, GameHelper.SHORTCUT_R2_X_MESSAGE);
+                                if (pressedInit == false)
+                                {
+                                    pct_TriggerButton.Image = Properties.Resources.R2;
+                                    pnl_Buttons.Visible = true;
+                                    processGameData(GameHelper.SHORTCUT_R2_CIRCLE_TYPE_ID, GameHelper.SHORTCUT_R2_TRIANGLE_TYPE_ID, GameHelper.SHORTCUT_R2_SQUARE_TYPE_ID,
+                                        GameHelper.SHORTCUT_R2_X_TYPE_ID, GameHelper.SHORTCUT_R2_CIRCLE_CATEGORY_ID, GameHelper.SHORTCUT_R2_TRIANGLE_CATEGORY_ID,
+                                        GameHelper.SHORTCUT_R2_SQUARE_CATEGORY_ID, GameHelper.SHORTCUT_R2_X_CATEGORY_ID, GameHelper.SHORTCUT_R2_CIRCLE_ID,
+                                        GameHelper.SHORTCUT_R2_TRIANGLE_ID, GameHelper.SHORTCUT_R2_SQUARE_ID, GameHelper.SHORTCUT_R2_X_ID, GameHelper.SHORTCUT_R2_CIRCLE_MESSAGE,
+                                        GameHelper.SHORTCUT_R2_TRIANGLE_MESSAGE, GameHelper.SHORTCUT_R2_SQUARE_MESSAGE, GameHelper.SHORTCUT_R2_X_MESSAGE);
 
-                                pressedInit = true;
+                                    pressedInit = true;
+                                }
+                            }
+                            else
+                            {
+                                pnl_Buttons.Visible = false;
+                                pressedInit = false;
                             }
                         }
-                        else
+                    }
+                    if (GameHelper.GetCurrentElfFile(m.ReadByte(GameHelper.LUI_HEAP)) == GameHelper.CurrentElf.OFFLINE)
+                    {
+                        gGameOffset = m.ReadInt(GameHelper.OFFLINE_PLAYER_POINTER) + 0x20000000;
+                        if (m.ReadInt(GameHelper.LOGGED_IN_OFFLINE_MODE) != 0)
                         {
-                            pnl_Buttons.Visible = false;
-                            pressedInit = false;
+                            var state = controller.GetState();
+
+                            var buttonsPressed = state.Gamepad.Buttons;
+
+                            if (buttonsPressed.HasFlag(GamepadButtonFlags.LeftShoulder))
+                            {
+                                if (pressedInit == false)
+                                {
+                                    pct_TriggerButton.Image = Properties.Resources.L1;
+                                    pnl_Buttons.Visible = true;
+                                    processGameData(GameHelper.SHORTCUT_L1_CIRCLE_TYPE_ID, GameHelper.SHORTCUT_L1_TRIANGLE_TYPE_ID, GameHelper.SHORTCUT_L1_SQUARE_TYPE_ID,
+                                        GameHelper.SHORTCUT_L1_X_TYPE_ID, GameHelper.SHORTCUT_L1_CIRCLE_CATEGORY_ID, GameHelper.SHORTCUT_L1_TRIANGLE_CATEGORY_ID,
+                                        GameHelper.SHORTCUT_L1_SQUARE_CATEGORY_ID, GameHelper.SHORTCUT_L1_X_CATEGORY_ID, GameHelper.SHORTCUT_L1_CIRCLE_ID,
+                                        GameHelper.SHORTCUT_L1_TRIANGLE_ID, GameHelper.SHORTCUT_L1_SQUARE_ID, GameHelper.SHORTCUT_L1_X_ID, GameHelper.SHORTCUT_L1_CIRCLE_MESSAGE,
+                                        GameHelper.SHORTCUT_L1_TRIANGLE_MESSAGE, GameHelper.SHORTCUT_L1_SQUARE_MESSAGE, GameHelper.SHORTCUT_L1_X_MESSAGE);
+
+
+                                    pressedInit = true;
+                                }
+
+                            }
+                            else if (state.Gamepad.LeftTrigger > 10)
+                            {
+                                if (pressedInit == false)
+                                {
+                                    pct_TriggerButton.Image = Properties.Resources.L2;
+                                    pnl_Buttons.Visible = true;
+                                    processGameData(GameHelper.SHORTCUT_L2_CIRCLE_TYPE_ID, GameHelper.SHORTCUT_L2_TRIANGLE_TYPE_ID, GameHelper.SHORTCUT_L2_SQUARE_TYPE_ID,
+                                        GameHelper.SHORTCUT_L2_X_TYPE_ID, GameHelper.SHORTCUT_L2_CIRCLE_CATEGORY_ID, GameHelper.SHORTCUT_L2_TRIANGLE_CATEGORY_ID,
+                                        GameHelper.SHORTCUT_L2_SQUARE_CATEGORY_ID, GameHelper.SHORTCUT_L2_X_CATEGORY_ID, GameHelper.SHORTCUT_L2_CIRCLE_ID,
+                                        GameHelper.SHORTCUT_L2_TRIANGLE_ID, GameHelper.SHORTCUT_L2_SQUARE_ID, GameHelper.SHORTCUT_L2_X_ID, GameHelper.SHORTCUT_L2_CIRCLE_MESSAGE,
+                                        GameHelper.SHORTCUT_L2_TRIANGLE_MESSAGE, GameHelper.SHORTCUT_L2_SQUARE_MESSAGE, GameHelper.SHORTCUT_L2_X_MESSAGE);
+
+
+                                    pressedInit = true;
+                                }
+                            }
+                            else if (buttonsPressed.HasFlag(GamepadButtonFlags.RightShoulder))
+                            {
+                                if (pressedInit == false)
+                                {
+                                    pct_TriggerButton.Image = Properties.Resources.R1;
+                                    pnl_Buttons.Visible = true;
+                                    processGameData(GameHelper.SHORTCUT_R1_CIRCLE_TYPE_ID, GameHelper.SHORTCUT_R1_TRIANGLE_TYPE_ID, GameHelper.SHORTCUT_R1_SQUARE_TYPE_ID,
+                                        GameHelper.SHORTCUT_R1_X_TYPE_ID, GameHelper.SHORTCUT_R1_CIRCLE_CATEGORY_ID, GameHelper.SHORTCUT_R1_TRIANGLE_CATEGORY_ID,
+                                        GameHelper.SHORTCUT_R1_SQUARE_CATEGORY_ID, GameHelper.SHORTCUT_R1_X_CATEGORY_ID, GameHelper.SHORTCUT_R1_CIRCLE_ID,
+                                        GameHelper.SHORTCUT_R1_TRIANGLE_ID, GameHelper.SHORTCUT_R1_SQUARE_ID, GameHelper.SHORTCUT_R1_X_ID, GameHelper.SHORTCUT_R1_CIRCLE_MESSAGE,
+                                        GameHelper.SHORTCUT_R1_TRIANGLE_MESSAGE, GameHelper.SHORTCUT_R1_SQUARE_MESSAGE, GameHelper.SHORTCUT_R1_X_MESSAGE);
+
+
+                                    pressedInit = true;
+                                }
+
+                            }
+                            else if (state.Gamepad.RightTrigger > 10)
+                            {
+                                if (pressedInit == false)
+                                {
+                                    pct_TriggerButton.Image = Properties.Resources.R2;
+                                    pnl_Buttons.Visible = true;
+                                    processGameData(GameHelper.SHORTCUT_R2_CIRCLE_TYPE_ID, GameHelper.SHORTCUT_R2_TRIANGLE_TYPE_ID, GameHelper.SHORTCUT_R2_SQUARE_TYPE_ID,
+                                        GameHelper.SHORTCUT_R2_X_TYPE_ID, GameHelper.SHORTCUT_R2_CIRCLE_CATEGORY_ID, GameHelper.SHORTCUT_R2_TRIANGLE_CATEGORY_ID,
+                                        GameHelper.SHORTCUT_R2_SQUARE_CATEGORY_ID, GameHelper.SHORTCUT_R2_X_CATEGORY_ID, GameHelper.SHORTCUT_R2_CIRCLE_ID,
+                                        GameHelper.SHORTCUT_R2_TRIANGLE_ID, GameHelper.SHORTCUT_R2_SQUARE_ID, GameHelper.SHORTCUT_R2_X_ID, GameHelper.SHORTCUT_R2_CIRCLE_MESSAGE,
+                                        GameHelper.SHORTCUT_R2_TRIANGLE_MESSAGE, GameHelper.SHORTCUT_R2_SQUARE_MESSAGE, GameHelper.SHORTCUT_R2_X_MESSAGE);
+
+                                    pressedInit = true;
+                                }
+                            }
+                            else
+                            {
+                                pnl_Buttons.Visible = false;
+                                pressedInit = false;
+                            }
                         }
                     }
 
@@ -167,7 +251,7 @@ namespace fragment_shortcut_overlay
         /// <returns></returns>
         private string CalculateNewAddress(string baseAddress, int offset)
         {
-            return (int.Parse(baseAddress, System.Globalization.NumberStyles.HexNumber) - offset).ToString("X8");
+            return (int.Parse(baseAddress, System.Globalization.NumberStyles.HexNumber) + offset).ToString("X8");
         }
 
         private void processGameData(string cirTypeIDAddress, string triTypeIDAddress, string sqTypeIDAddress,string xTypeIDAddress,
@@ -284,26 +368,5 @@ namespace fragment_shortcut_overlay
             }
         }
 
-        private void tmr_GetGameVersion_Tick(object sender, EventArgs e)
-        {
-            if (pcsx2Running)
-            {
-                m.OpenProcess(PCSX2PROCESSNAME + ".exe");
-
-                if (m.ReadByte(GameHelper.CONNECTED_TO_AS_ADDRESS) == 1)
-                {
-                    foreach(var item in GameHelper.gameVersionData)
-                    {
-                        string text = ByteConverstionHelper.convertBytesToString(m.ReadBytes(item.Value, 4));
-                        if (text == " roo")
-                        {
-                            gGameOffset = item.Key;
-                            tmr_GetGameVersion.Enabled = false;
-                        }
-
-                    }
-                }
-            }
-        }
     }
 }

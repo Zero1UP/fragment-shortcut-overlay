@@ -9,6 +9,8 @@ namespace fragment_shortcut_overlay
     public static class GameHelper
     {
         public const string CONNECTED_TO_AS_ADDRESS = "206F92F0";
+        //This points to some player information. I dunno, I stole it from the player bar code. 
+        public const string LOGGED_IN_OFFLINE_MODE = "20734740";
 
         //Addresses to Check to verify the version of the game we are on
         //The check should contain the text roo
@@ -21,91 +23,128 @@ namespace fragment_shortcut_overlay
             {0,"20C403AC" }
         };
 
-        //These are all base addresses from the B8 Version
+        public const string LUI_HEAP = "20100120";
+
+        public enum CurrentElf
+        {
+            MAIN,
+            OFFLINE,
+            ONLINE,
+            UNKNOWN
+        };
+
+        /// <summary>
+        /// Retruns which fragment ELF is loaded based on where the Heap is initialized.
+        /// </summary>
+        /// <param name="heap_high"></param>
+        /// <returns>CurrentElf enum value</returns>
+        public static CurrentElf GetCurrentElfFile(int heap_high)
+        {
+            switch(heap_high)
+            {
+                //Heap is initialized at 0x00328B80
+                case 0x33:
+                    return CurrentElf.MAIN;
+                //Heap is initialized at 0x00734A00
+                case 0x73:
+                    return CurrentElf.OFFLINE;
+                //Heap is initialized at 0x0091D680
+                case 0x92:
+                    return CurrentElf.ONLINE;
+                default:
+                    return CurrentElf.UNKNOWN;
+            }
+        }
+
+        //Address to global pointer for PLAYER instance, which should stay the same regardless to any file changes.
+        public const string OFFLINE_PLAYER_POINTER = "2049d050";
+        public const string ONLINE_PLAYER_POINTER = "20642780";
+
+        //These are all based of PLAYER pointer, original online versions are left in comments.
         //Type IDs 0 - 2
         //L1
-        public const string SHORTCUT_L1_CIRCLE_TYPE_ID = "20C403C0";
-        public const string SHORTCUT_L1_TRIANGLE_TYPE_ID = "20C403C1";
-        public const string SHORTCUT_L1_SQUARE_TYPE_ID = "20C403C2";
-        public const string SHORTCUT_L1_X_TYPE_ID = "20C403C3";
-   
-        public const string SHORTCUT_R1_CIRCLE_TYPE_ID = "20C403C4";
-        public const string SHORTCUT_R1_TRIANGLE_TYPE_ID = "20C403C5";
-        public const string SHORTCUT_R1_SQUARE_TYPE_ID = "20C403C6";
-        public const string SHORTCUT_R1_X_TYPE_ID = "20C403C7";
- 
-        public const string SHORTCUT_L2_CIRCLE_TYPE_ID = "20C403C8";
-        public const string SHORTCUT_L2_TRIANGLE_TYPE_ID = "20C403C9";
-        public const string SHORTCUT_L2_SQUARE_TYPE_ID = "20C403CA";
-        public const string SHORTCUT_L2_X_TYPE_ID = "20C403CB";
-     
-        public const string SHORTCUT_R2_CIRCLE_TYPE_ID = "20C403CC";
-        public const string SHORTCUT_R2_TRIANGLE_TYPE_ID = "20C403CD";
-        public const string SHORTCUT_R2_SQUARE_TYPE_ID = "20C403CE";
-        public const string SHORTCUT_R2_X_TYPE_ID = "20C403CF";
+        public const string SHORTCUT_L1_CIRCLE_TYPE_ID = "2890"; //"20C403C0";
+        public const string SHORTCUT_L1_TRIANGLE_TYPE_ID = "2891"; //"20C403C1";
+        public const string SHORTCUT_L1_SQUARE_TYPE_ID = "2892"; //"20C403C2";
+        public const string SHORTCUT_L1_X_TYPE_ID = "2893"; //"20C403C3";
+
+        public const string SHORTCUT_R1_CIRCLE_TYPE_ID = "2894"; //"20C403C4";
+        public const string SHORTCUT_R1_TRIANGLE_TYPE_ID = "2895"; //"20C403C5";
+        public const string SHORTCUT_R1_SQUARE_TYPE_ID = "2896"; //"20C403C6";
+        public const string SHORTCUT_R1_X_TYPE_ID = "2897"; //"20C403C7";
+
+        public const string SHORTCUT_L2_CIRCLE_TYPE_ID = "2898"; //"20C403C8";
+        public const string SHORTCUT_L2_TRIANGLE_TYPE_ID = "2899"; //"20C403C9";
+        public const string SHORTCUT_L2_SQUARE_TYPE_ID = "289a"; //"20C403CA";
+        public const string SHORTCUT_L2_X_TYPE_ID = "289B"; //"20C403CB";
+
+        public const string SHORTCUT_R2_CIRCLE_TYPE_ID = "289C"; //"20C403CC";
+        public const string SHORTCUT_R2_TRIANGLE_TYPE_ID = "289D"; //"20C403CD";
+        public const string SHORTCUT_R2_SQUARE_TYPE_ID = "289E"; //"20C403CE";
+        public const string SHORTCUT_R2_X_TYPE_ID = "289F"; //"20C403CF";
 
         //Category IDs A - C
-        public const string SHORTCUT_L1_CIRCLE_CATEGORY_ID = "20C403D0";
-        public const string SHORTCUT_L1_TRIANGLE_CATEGORY_ID = "20C403D2";
-        public const string SHORTCUT_L1_SQUARE_CATEGORY_ID = "20C403D4";
-        public const string SHORTCUT_L1_X_CATEGORY_ID = "20C403D6";
+        public const string SHORTCUT_L1_CIRCLE_CATEGORY_ID = "28A0"; //"20C403D0";
+        public const string SHORTCUT_L1_TRIANGLE_CATEGORY_ID = "28A2"; //"20C403D2";
+        public const string SHORTCUT_L1_SQUARE_CATEGORY_ID = "28A4"; //"20C403D4";
+        public const string SHORTCUT_L1_X_CATEGORY_ID = "28A6"; //"20C403D6";
 
-        public const string SHORTCUT_R1_CIRCLE_CATEGORY_ID = "20C403D8";
-        public const string SHORTCUT_R1_TRIANGLE_CATEGORY_ID = "20C403DA";
-        public const string SHORTCUT_R1_SQUARE_CATEGORY_ID = "20C403DC";
-        public const string SHORTCUT_R1_X_CATEGORY_ID = "20C403DE";
+        public const string SHORTCUT_R1_CIRCLE_CATEGORY_ID = "28A8"; //"20C403D8";
+        public const string SHORTCUT_R1_TRIANGLE_CATEGORY_ID = "28AA"; //"20C403DA";
+        public const string SHORTCUT_R1_SQUARE_CATEGORY_ID = "28AC"; //"20C403DC";
+        public const string SHORTCUT_R1_X_CATEGORY_ID = "28AE"; //"20C403DE";
 
-        public const string SHORTCUT_L2_CIRCLE_CATEGORY_ID = "20C403E0";
-        public const string SHORTCUT_L2_TRIANGLE_CATEGORY_ID = "20C403E2";
-        public const string SHORTCUT_L2_SQUARE_CATEGORY_ID = "20C403E4";
-        public const string SHORTCUT_L2_X_CATEGORY_ID = "20C403E6";
+        public const string SHORTCUT_L2_CIRCLE_CATEGORY_ID = "28B0"; //"20C403E0";
+        public const string SHORTCUT_L2_TRIANGLE_CATEGORY_ID = "28B2"; //"20C403E2";
+        public const string SHORTCUT_L2_SQUARE_CATEGORY_ID = "28B4"; //"20C403E4";
+        public const string SHORTCUT_L2_X_CATEGORY_ID = "28B6"; //"20C403E6";
 
-        public const string SHORTCUT_R2_CIRCLE_CATEGORY_ID = "20C403E8";
-        public const string SHORTCUT_R2_TRIANGLE_CATEGORY_ID = "20C403EA";
-        public const string SHORTCUT_R2_SQUARE_CATEGORY_ID = "20C403EC";
-        public const string SHORTCUT_R2_X_CATEGORY_ID = "20C403EE";
+        public const string SHORTCUT_R2_CIRCLE_CATEGORY_ID = "28B8"; //"20C403E8";
+        public const string SHORTCUT_R2_TRIANGLE_CATEGORY_ID = "28BA"; //"20C403EA";
+        public const string SHORTCUT_R2_SQUARE_CATEGORY_ID = "28BC"; //"20C403EC";
+        public const string SHORTCUT_R2_X_CATEGORY_ID = "28BE"; //"20C403EE";
 
         //Short Cut IDs
-        public const string SHORTCUT_L1_CIRCLE_ID = "20C403F0";
-        public const string SHORTCUT_L1_TRIANGLE_ID = "20C403F2";
-        public const string SHORTCUT_L1_SQUARE_ID = "20C403F4";
-        public const string SHORTCUT_L1_X_ID = "20C403F6";
+        public const string SHORTCUT_L1_CIRCLE_ID = "28C0"; //"20C403F0";
+        public const string SHORTCUT_L1_TRIANGLE_ID = "28C2"; //"20C403F2";
+        public const string SHORTCUT_L1_SQUARE_ID = "28C4"; //"20C403F4";
+        public const string SHORTCUT_L1_X_ID = "28C6"; //"20C403F6";
 
-        public const string SHORTCUT_R1_CIRCLE_ID = "20C403F8";
-        public const string SHORTCUT_R1_TRIANGLE_ID = "20C403FA";
-        public const string SHORTCUT_R1_SQUARE_ID = "20C403FC";
-        public const string SHORTCUT_R1_X_ID = "20C403FE";
+        public const string SHORTCUT_R1_CIRCLE_ID = "28C8"; //"20C403F8";
+        public const string SHORTCUT_R1_TRIANGLE_ID = "28CA"; //"20C403FA";
+        public const string SHORTCUT_R1_SQUARE_ID = "28CC"; //"20C403FC";
+        public const string SHORTCUT_R1_X_ID = "28CE"; //"20C403FE";
 
-        public const string SHORTCUT_L2_CIRCLE_ID = "20C40400";
-        public const string SHORTCUT_L2_TRIANGLE_ID = "20C40402";
-        public const string SHORTCUT_L2_SQUARE_ID = "20C40404";
-        public const string SHORTCUT_L2_X_ID = "20C40406";
+        public const string SHORTCUT_L2_CIRCLE_ID = "28D0"; //"20C40400";
+        public const string SHORTCUT_L2_TRIANGLE_ID = "28D2"; //"20C40402";
+        public const string SHORTCUT_L2_SQUARE_ID = "28D4"; //"20C40404";
+        public const string SHORTCUT_L2_X_ID = "28D6"; //"20C40406";
 
-        public const string SHORTCUT_R2_CIRCLE_ID = "20C40408";
-        public const string SHORTCUT_R2_TRIANGLE_ID = "20C4040A";
-        public const string SHORTCUT_R2_SQUARE_ID = "20C4040C";
-        public const string SHORTCUT_R2_X_ID = "20C4040E";
+        public const string SHORTCUT_R2_CIRCLE_ID = "28D8"; //"20C40408";
+        public const string SHORTCUT_R2_TRIANGLE_ID = "28DA"; //"20C4040A";
+        public const string SHORTCUT_R2_SQUARE_ID = "28DC"; //"20C4040C";
+        public const string SHORTCUT_R2_X_ID = "28DE"; //"20C4040E";
 
         //Message Locations
-        public const string SHORTCUT_L1_CIRCLE_MESSAGE = "20C40410";
-        public const string SHORTCUT_L1_TRIANGLE_MESSAGE = "20C40431";
-        public const string SHORTCUT_L1_SQUARE_MESSAGE = "20C40452";
-        public const string SHORTCUT_L1_X_MESSAGE = "20C40473";
+        public const string SHORTCUT_L1_CIRCLE_MESSAGE = "28E0"; //"20C40410";
+        public const string SHORTCUT_L1_TRIANGLE_MESSAGE = "2901"; //"20C40431";
+        public const string SHORTCUT_L1_SQUARE_MESSAGE = "2922"; //"20C40452";
+        public const string SHORTCUT_L1_X_MESSAGE = "2943"; //"20C40473";
 
-        public const string SHORTCUT_R1_CIRCLE_MESSAGE = "20C40494";
-        public const string SHORTCUT_R1_TRIANGLE_MESSAGE = "20C404B5";
-        public const string SHORTCUT_R1_SQUARE_MESSAGE = "20C404D6";
-        public const string SHORTCUT_R1_X_MESSAGE = "20C404F7";
+        public const string SHORTCUT_R1_CIRCLE_MESSAGE = "2964"; //"20C40494";
+        public const string SHORTCUT_R1_TRIANGLE_MESSAGE = "2985"; //"20C404B5";
+        public const string SHORTCUT_R1_SQUARE_MESSAGE = "29A6"; //"20C404D6";
+        public const string SHORTCUT_R1_X_MESSAGE = "29C7"; //"20C404F7";
 
-        public const string SHORTCUT_L2_CIRCLE_MESSAGE = "20C40518";
-        public const string SHORTCUT_L2_TRIANGLE_MESSAGE = "20C40539";
-        public const string SHORTCUT_L2_SQUARE_MESSAGE = "20C4055A";
-        public const string SHORTCUT_L2_X_MESSAGE = "20C4057B";
+        public const string SHORTCUT_L2_CIRCLE_MESSAGE = "29E8"; //"20C40518";
+        public const string SHORTCUT_L2_TRIANGLE_MESSAGE = "2A09"; //"20C40539";
+        public const string SHORTCUT_L2_SQUARE_MESSAGE = "2A2A"; //"20C4055A";
+        public const string SHORTCUT_L2_X_MESSAGE = "2A4B"; //"20C4057B";
 
-        public const string SHORTCUT_R2_CIRCLE_MESSAGE = "20C4059C";
-        public const string SHORTCUT_R2_TRIANGLE_MESSAGE = "20C405BD";
-        public const string SHORTCUT_R2_SQUARE_MESSAGE = "20C405DE";
-        public const string SHORTCUT_R2_X_MESSAGE = "20C405FF";
+        public const string SHORTCUT_R2_CIRCLE_MESSAGE = "2A6C"; //"20C4059C";
+        public const string SHORTCUT_R2_TRIANGLE_MESSAGE = "2A8D"; //"20C405BD";
+        public const string SHORTCUT_R2_SQUARE_MESSAGE = "2AAE"; //"20C405DE";
+        public const string SHORTCUT_R2_X_MESSAGE = "2ACF"; //"20C405FF";
 
         // Short cut notes
         // Each button combo has the following info:
