@@ -5,4 +5,4 @@ This currently supports the vanilla game and the last 2 of the Coldbird releases
 Single player is not supported.
 
 # How to use
-Start PCSX2 and then start the program. As long as you are using the last coldbird release (currently) then once you are online and in a server you will be able to view your shortcuts by pressing L1,L2,R1,R2.
+Start PCSX2 and then start the program. Once you are online and in a server you will be able to view your shortcuts by pressing L1,L2,R1,R2.
