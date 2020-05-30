@@ -9,57 +9,61 @@ namespace fragment_shortcut_overlay
     public static class GameHelper
     {
         public const string CONNECTED_TO_AS_ADDRESS = "206F92F0";
-        public const string AREA_WORD_POINTER = "206F9438";
-        public const string SERVER_NAME_ADDRESS = "206F94F2";
-        public const string PARTY_COUNT_ADDRESS = "208B93A8";
-        public const string IN_AREA_ADDRESS = "20877DA8";
-        public const string ZONE_CCS_FILE_LOADED = "206541F4";
 
+        //Addresses to Check to verify the version of the game we are on
+        //The check should contain the text roo
+        //272 = Vanilla
+        //656 = B7
+        public static Dictionary<int, string> gameVersionData = new Dictionary<int, string>()
+        {
+            {272,"20C4029C" },
+            {656 ,"20C4011C"},
+            {0,"20C403AC" }
+        };
+
+        //These are all base addresses from the B8 Version
         //Type IDs 0 - 2
         //L1
         public const string SHORTCUT_L1_CIRCLE_TYPE_ID = "20C403C0";
         public const string SHORTCUT_L1_TRIANGLE_TYPE_ID = "20C403C1";
         public const string SHORTCUT_L1_SQUARE_TYPE_ID = "20C403C2";
         public const string SHORTCUT_L1_X_TYPE_ID = "20C403C3";
-        //R1
+   
         public const string SHORTCUT_R1_CIRCLE_TYPE_ID = "20C403C4";
         public const string SHORTCUT_R1_TRIANGLE_TYPE_ID = "20C403C5";
         public const string SHORTCUT_R1_SQUARE_TYPE_ID = "20C403C6";
         public const string SHORTCUT_R1_X_TYPE_ID = "20C403C7";
-        //L2
+ 
         public const string SHORTCUT_L2_CIRCLE_TYPE_ID = "20C403C8";
         public const string SHORTCUT_L2_TRIANGLE_TYPE_ID = "20C403C9";
         public const string SHORTCUT_L2_SQUARE_TYPE_ID = "20C403CA";
         public const string SHORTCUT_L2_X_TYPE_ID = "20C403CB";
-        //R2
+     
         public const string SHORTCUT_R2_CIRCLE_TYPE_ID = "20C403CC";
         public const string SHORTCUT_R2_TRIANGLE_TYPE_ID = "20C403CD";
         public const string SHORTCUT_R2_SQUARE_TYPE_ID = "20C403CE";
         public const string SHORTCUT_R2_X_TYPE_ID = "20C403CF";
 
         //Category IDs A - C
-
-        //L1
         public const string SHORTCUT_L1_CIRCLE_CATEGORY_ID = "20C403D0";
         public const string SHORTCUT_L1_TRIANGLE_CATEGORY_ID = "20C403D2";
         public const string SHORTCUT_L1_SQUARE_CATEGORY_ID = "20C403D4";
         public const string SHORTCUT_L1_X_CATEGORY_ID = "20C403D6";
-        //R1
+
         public const string SHORTCUT_R1_CIRCLE_CATEGORY_ID = "20C403D8";
         public const string SHORTCUT_R1_TRIANGLE_CATEGORY_ID = "20C403DA";
         public const string SHORTCUT_R1_SQUARE_CATEGORY_ID = "20C403DC";
         public const string SHORTCUT_R1_X_CATEGORY_ID = "20C403DE";
-        //L2
+
         public const string SHORTCUT_L2_CIRCLE_CATEGORY_ID = "20C403E0";
         public const string SHORTCUT_L2_TRIANGLE_CATEGORY_ID = "20C403E2";
         public const string SHORTCUT_L2_SQUARE_CATEGORY_ID = "20C403E4";
         public const string SHORTCUT_L2_X_CATEGORY_ID = "20C403E6";
-        //R2
+
         public const string SHORTCUT_R2_CIRCLE_CATEGORY_ID = "20C403E8";
         public const string SHORTCUT_R2_TRIANGLE_CATEGORY_ID = "20C403EA";
         public const string SHORTCUT_R2_SQUARE_CATEGORY_ID = "20C403EC";
         public const string SHORTCUT_R2_X_CATEGORY_ID = "20C403EE";
-
 
         //Short Cut IDs
         public const string SHORTCUT_L1_CIRCLE_ID = "20C403F0";
@@ -81,7 +85,6 @@ namespace fragment_shortcut_overlay
         public const string SHORTCUT_R2_TRIANGLE_ID = "20C4040A";
         public const string SHORTCUT_R2_SQUARE_ID = "20C4040C";
         public const string SHORTCUT_R2_X_ID = "20C4040E";
-
 
         //Message Locations
         public const string SHORTCUT_L1_CIRCLE_MESSAGE = "20C40410";
@@ -109,9 +112,6 @@ namespace fragment_shortcut_overlay
         // Category ID 0 = Message, 1 = Spell, 2 = Item
         // Spell / Item ID
         // If Category ID = 0 Then we load the message that is below the spell / item IDS
-
-        //Vanilla game does not work
-
 
         public static List<ShortCutIDModel> ShortCutIdData = new List<ShortCutIDModel>()
         {
@@ -554,8 +554,6 @@ namespace fragment_shortcut_overlay
             { new ShortCutIDModel("0000",2,"C","Fortune Wire")},
             { new ShortCutIDModel("0001",2,"C","Sprite Ocarina")},
             { new ShortCutIDModel("0002",2,"C","Fairy's Orb")},
-
-
         };
     }
 }

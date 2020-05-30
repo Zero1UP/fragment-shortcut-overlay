@@ -20,8 +20,27 @@ namespace fragment_shortcut_overlay.Helpers
 
                 return "";
             }
+        }
 
+        public static string convertBytesToString(byte[] data)
+        {
+            if (data != null)
+            {
+                string result;
 
+                data.Reverse();
+
+                result = Encoding.Default.GetString(data);
+
+                var cleanedString = result.Split(new string[] { "\0" }, StringSplitOptions.None);
+                return cleanedString[0].Replace(',', ' ');
+            }
+            else
+            {
+                return "";
+            }
         }
     }
+
+
 }

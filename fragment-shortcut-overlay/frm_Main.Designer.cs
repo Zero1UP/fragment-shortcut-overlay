@@ -37,17 +37,18 @@
             this.lbl_Cross = new System.Windows.Forms.Label();
             this.tmr_AdjustWindow = new System.Windows.Forms.Timer(this.components);
             this.pnl_Buttons = new System.Windows.Forms.Panel();
+            this.pct_TriggerButton = new System.Windows.Forms.PictureBox();
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
             this.pictureBox4 = new System.Windows.Forms.PictureBox();
             this.pictureBox3 = new System.Windows.Forms.PictureBox();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            this.pct_TriggerButton = new System.Windows.Forms.PictureBox();
+            this.tmr_GetGameVersion = new System.Windows.Forms.Timer(this.components);
             this.pnl_Buttons.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pct_TriggerButton)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pct_TriggerButton)).BeginInit();
             this.SuspendLayout();
             // 
             // tmr_ReadPad
@@ -132,6 +133,14 @@
             this.pnl_Buttons.TabIndex = 2;
             this.pnl_Buttons.Visible = false;
             // 
+            // pct_TriggerButton
+            // 
+            this.pct_TriggerButton.Location = new System.Drawing.Point(6, 5);
+            this.pct_TriggerButton.Name = "pct_TriggerButton";
+            this.pct_TriggerButton.Size = new System.Drawing.Size(34, 21);
+            this.pct_TriggerButton.TabIndex = 3;
+            this.pct_TriggerButton.TabStop = false;
+            // 
             // pictureBox2
             // 
             this.pictureBox2.Image = global::fragment_shortcut_overlay.Properties.Resources.circle;
@@ -168,13 +177,11 @@
             this.pictureBox1.TabIndex = 1;
             this.pictureBox1.TabStop = false;
             // 
-            // pct_TriggerButton
+            // tmr_GetGameVersion
             // 
-            this.pct_TriggerButton.Location = new System.Drawing.Point(6, 5);
-            this.pct_TriggerButton.Name = "pct_TriggerButton";
-            this.pct_TriggerButton.Size = new System.Drawing.Size(34, 21);
-            this.pct_TriggerButton.TabIndex = 3;
-            this.pct_TriggerButton.TabStop = false;
+            this.tmr_GetGameVersion.Enabled = true;
+            this.tmr_GetGameVersion.Interval = 1;
+            this.tmr_GetGameVersion.Tick += new System.EventHandler(this.tmr_GetGameVersion_Tick);
             // 
             // frm_Main
             // 
@@ -186,11 +193,11 @@
             this.Load += new System.EventHandler(this.frm_Main_Load);
             this.pnl_Buttons.ResumeLayout(false);
             this.pnl_Buttons.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pct_TriggerButton)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pct_TriggerButton)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -210,6 +217,7 @@
         private System.Windows.Forms.PictureBox pictureBox4;
         private System.Windows.Forms.Panel pnl_Buttons;
         private System.Windows.Forms.PictureBox pct_TriggerButton;
+        private System.Windows.Forms.Timer tmr_GetGameVersion;
     }
 }
 
