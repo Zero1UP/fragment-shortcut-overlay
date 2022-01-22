@@ -1,17 +1,26 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using fragment_shortcut_overlay.Helpers;
+using Microsoft.Win32.SafeHandles;
 
 namespace fragment_shortcut_overlay
 {
     public static class GameHelper
     {
-        public const string CONNECTED_TO_AS_ADDRESS = "206F92F0";
+        
+        public const long PCSX2_32BIT_ADDRESSPTR = 0x20000000;
+        public const long PCSX2_64BIT_ADDRESSPTR = 0x7FF750000000;
+        //7FF750000000
+        
+        public const int CONNECTED_TO_AS_ADDRESS_OFFSET = 0x6F92F0;
         //This points to some player information. I dunno, I stole it from the player bar code. 
-        public const string LOGGED_IN_OFFLINE_MODE = "20734740";
-        public const string LUI_HEAP = "20100120";
+        public const int LOGGED_IN_OFFLINE_MODE_OFFSET = 0x734740;
+        public const int LUI_HEAP_OFFSET = 0x100120;
+        
 
         public enum CurrentElf
         {
@@ -20,6 +29,35 @@ namespace fragment_shortcut_overlay
             ONLINE,
             UNKNOWN
         };
+
+
+        /// <summary>
+        /// Get the Offset of the PCSX2 Emulator based whether it's running the 32bit version or 64bit
+        /// </summary>
+        /// <param name="process"></param>
+        /// <returns>PCSX2 Offset</returns>
+        public static long GetPcsx2Offset(Process process)
+        {
+            bool isWow64 = true;
+            
+            if (Environment.Is64BitOperatingSystem)
+            {
+                SafeProcessHandle processHandle = process.SafeHandle;
+                NativeMethods.IsWow64Process(processHandle, out isWow64);
+            }
+
+            if (isWow64)
+            {
+                return PCSX2_32BIT_ADDRESSPTR;
+            }
+            else
+            {
+                return PCSX2_64BIT_ADDRESSPTR;
+            }
+
+
+        }
+
 
         /// <summary>
         /// Retruns which fragment ELF is loaded based on where the Heap is initialized.
@@ -45,12 +83,97 @@ namespace fragment_shortcut_overlay
         }
 
         //Address to global pointer for PLAYER instance, which should stay the same regardless to any file changes.
-        public const string OFFLINE_PLAYER_POINTER = "2049d050";
-        public const string ONLINE_PLAYER_POINTER = "20642780";
+        public const int OFFLINE_PLAYER_POINTER_OFFSET = 0x49d050;
+        public const int ONLINE_PLAYER_POINTER_OFFSET = 0x642780;
 
         //These are all based of PLAYER pointer, original online versions are left in comments.
         //Type IDs 0 - 2
         //L1
+        /*public static IntPtr SHORTCUT_L1_CIRCLE_TYPE_ID = new IntPtr(0x2890); //"20C403C0";
+        public static IntPtr SHORTCUT_L1_TRIANGLE_TYPE_ID = new IntPtr(0x2891); //"20C403C1";
+        public static IntPtr SHORTCUT_L1_SQUARE_TYPE_ID = new IntPtr(0x2892); //"20C403C2";
+        public static IntPtr SHORTCUT_L1_X_TYPE_ID = new IntPtr(0x2893); //"20C403C3";
+
+        public static IntPtr SHORTCUT_R1_CIRCLE_TYPE_ID = new IntPtr(0x2894); //"20C403C4";
+        public static IntPtr SHORTCUT_R1_TRIANGLE_TYPE_ID = new IntPtr(0x2895); //"20C403C5";
+        public static IntPtr SHORTCUT_R1_SQUARE_TYPE_ID = new IntPtr(0x2896); //"20C403C6";
+        public static IntPtr SHORTCUT_R1_X_TYPE_ID = new IntPtr(0x2897); //"20C403C7";
+
+        public static IntPtr SHORTCUT_L2_CIRCLE_TYPE_ID = new IntPtr(0x2898); //"20C403C8";
+        public static IntPtr SHORTCUT_L2_TRIANGLE_TYPE_ID = new IntPtr(0x2899); //"20C403C9";
+        public static IntPtr SHORTCUT_L2_SQUARE_TYPE_ID = new IntPtr(0x289a); //"20C403CA";
+        public static IntPtr SHORTCUT_L2_X_TYPE_ID = new IntPtr(0x289B); //"20C403CB";
+
+        public static IntPtr SHORTCUT_R2_CIRCLE_TYPE_ID = new IntPtr(0x289C); //"20C403CC";
+        public static IntPtr SHORTCUT_R2_TRIANGLE_TYPE_ID = new IntPtr(0x289D); //"20C403CD";
+        public static IntPtr SHORTCUT_R2_SQUARE_TYPE_ID = new IntPtr(0x289E); //"20C403CE";
+        public static IntPtr SHORTCUT_R2_X_TYPE_ID = new IntPtr(0x289F); //"20C403CF";
+
+        //Category IDs A - C
+        public static IntPtr SHORTCUT_L1_CIRCLE_CATEGORY_ID = new IntPtr(0x28A0); //"20C403D0";
+        public static IntPtr SHORTCUT_L1_TRIANGLE_CATEGORY_ID = new IntPtr(0x28A2); //"20C403D2";
+        public static IntPtr SHORTCUT_L1_SQUARE_CATEGORY_ID = new IntPtr(0x28A4); //"20C403D4";
+        public static IntPtr SHORTCUT_L1_X_CATEGORY_ID = new IntPtr(0x28A6); //"20C403D6";
+
+        public static IntPtr SHORTCUT_R1_CIRCLE_CATEGORY_ID = new IntPtr(0x28A8); //"20C403D8";
+        public static IntPtr SHORTCUT_R1_TRIANGLE_CATEGORY_ID = new IntPtr(0x28AA); //"20C403DA";
+        public static IntPtr SHORTCUT_R1_SQUARE_CATEGORY_ID = new IntPtr(0x28AC); //"20C403DC";
+        public static IntPtr SHORTCUT_R1_X_CATEGORY_ID = new IntPtr(0x28AE); //"20C403DE";
+
+        public static IntPtr SHORTCUT_L2_CIRCLE_CATEGORY_ID = new IntPtr(0x28B0); //"20C403E0";
+        public static IntPtr SHORTCUT_L2_TRIANGLE_CATEGORY_ID = new IntPtr(0x28B2); //"20C403E2";
+        public static IntPtr SHORTCUT_L2_SQUARE_CATEGORY_ID = new IntPtr(0x28B4); //"20C403E4";
+        public static IntPtr SHORTCUT_L2_X_CATEGORY_ID = new IntPtr(0x28B6); //"20C403E6";
+
+        public static IntPtr SHORTCUT_R2_CIRCLE_CATEGORY_ID = new IntPtr(0x28B8); //"20C403E8";
+        public static IntPtr SHORTCUT_R2_TRIANGLE_CATEGORY_ID = new IntPtr(0x28BA); //"20C403EA";
+        public static IntPtr SHORTCUT_R2_SQUARE_CATEGORY_ID = new IntPtr(0x28BC); //"20C403EC";
+        public static IntPtr SHORTCUT_R2_X_CATEGORY_ID = new IntPtr(0x28BE); //"20C403EE";
+
+        //Short Cut IDs
+        public static IntPtr SHORTCUT_L1_CIRCLE_ID = new IntPtr(0x28C0); //"20C403F0";
+        public static IntPtr SHORTCUT_L1_TRIANGLE_ID = new IntPtr(0x28C2); //"20C403F2";
+        public static IntPtr SHORTCUT_L1_SQUARE_ID = new IntPtr(0x28C4); //"20C403F4";
+        public static IntPtr SHORTCUT_L1_X_ID = new IntPtr(0x28C6); //"20C403F6";
+
+        public static IntPtr SHORTCUT_R1_CIRCLE_ID = new IntPtr(0x28C8); //"20C403F8";
+        public static IntPtr SHORTCUT_R1_TRIANGLE_ID = new IntPtr(0x28CA); //"20C403FA";
+        public static IntPtr SHORTCUT_R1_SQUARE_ID = new IntPtr(0x28CC); //"20C403FC";
+        public static IntPtr SHORTCUT_R1_X_ID = new IntPtr(0x28CE); //"20C403FE";
+
+        public static IntPtr SHORTCUT_L2_CIRCLE_ID = new IntPtr(0x28D0); //"20C40400";
+        public static IntPtr SHORTCUT_L2_TRIANGLE_ID = new IntPtr(0x28D2); //"20C40402";
+        public static IntPtr SHORTCUT_L2_SQUARE_ID = new IntPtr(0x28D4); //"20C40404";
+        public static IntPtr SHORTCUT_L2_X_ID = new IntPtr(0x28D6); //"20C40406";
+
+        public static IntPtr SHORTCUT_R2_CIRCLE_ID = new IntPtr(0x28D8); //"20C40408";
+        public static IntPtr SHORTCUT_R2_TRIANGLE_ID = new IntPtr(0x28DA); //"20C4040A";
+        public static IntPtr SHORTCUT_R2_SQUARE_ID = new IntPtr(0x28DC); //"20C4040C";
+        public static IntPtr SHORTCUT_R2_X_ID = new IntPtr(0x28DE); //"20C4040E";
+
+        //Message Locations
+        public static IntPtr SHORTCUT_L1_CIRCLE_MESSAGE = new IntPtr(0x28E0); //"20C40410";
+        public static IntPtr SHORTCUT_L1_TRIANGLE_MESSAGE = new IntPtr(0x2901); //"20C40431";
+        public static IntPtr SHORTCUT_L1_SQUARE_MESSAGE = new IntPtr(0x2922); //"20C40452";
+        public static IntPtr SHORTCUT_L1_X_MESSAGE = new IntPtr(0x2943); //"20C40473";
+
+        public static IntPtr SHORTCUT_R1_CIRCLE_MESSAGE = new IntPtr(0x2964); //"20C40494";
+        public static IntPtr SHORTCUT_R1_TRIANGLE_MESSAGE = new IntPtr(0x2985); //"20C404B5";
+        public static IntPtr SHORTCUT_R1_SQUARE_MESSAGE = new IntPtr(0x29A6); //"20C404D6";
+        public static IntPtr SHORTCUT_R1_X_MESSAGE = new IntPtr(0x29C7); //"20C404F7";
+
+        public static IntPtr SHORTCUT_L2_CIRCLE_MESSAGE = new IntPtr(0x29E8); //"20C40518";
+        public static IntPtr SHORTCUT_L2_TRIANGLE_MESSAGE = new IntPtr(0x2A09); //"20C40539";
+        public static IntPtr SHORTCUT_L2_SQUARE_MESSAGE = new IntPtr(0x2A2A); //"20C4055A";
+        public static IntPtr SHORTCUT_L2_X_MESSAGE = new IntPtr(0x2A4B); //"20C4057B";
+
+        public static IntPtr SHORTCUT_R2_CIRCLE_MESSAGE = new IntPtr(0x2A6C); //"20C4059C";
+        public static IntPtr SHORTCUT_R2_TRIANGLE_MESSAGE = new IntPtr(0x2A8D); //"20C405BD";
+        public static IntPtr SHORTCUT_R2_SQUARE_MESSAGE = new IntPtr(0x2AAE); //"20C405DE";
+        public static IntPtr SHORTCUT_R2_X_MESSAGE = new IntPtr(0x2ACF); //"20C405FF";
+        */
+        
+        
         public const string SHORTCUT_L1_CIRCLE_TYPE_ID = "2890"; //"20C403C0";
         public const string SHORTCUT_L1_TRIANGLE_TYPE_ID = "2891"; //"20C403C1";
         public const string SHORTCUT_L1_SQUARE_TYPE_ID = "2892"; //"20C403C2";

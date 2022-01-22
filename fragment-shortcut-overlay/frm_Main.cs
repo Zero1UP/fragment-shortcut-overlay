@@ -1,9 +1,12 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel;
 using System.Windows.Forms;
 using SharpDX.XInput;
-using Memory;
+using Binarysharp.MemoryManagement;
 using System.Diagnostics;
 using System.Drawing;
+using System.Linq;
 using System.Runtime.InteropServices;
 using fragment_shortcut_overlay.Helpers;
 
@@ -26,11 +29,12 @@ namespace fragment_shortcut_overlay
 
         Controller controller;
         bool controllerConnected = false;
-        int gGameOffset;
-        Mem m = new Mem();
+        long gGameOffset;
+        MemorySharp m = null;
         private const string PCSX2PROCESSNAME = "pcsx2";
         bool pcsx2Running = false;
         bool pressedInit = false;
+        private Process pcsx2;
 
         public frm_Main()
         {
@@ -51,11 +55,11 @@ namespace fragment_shortcut_overlay
 
         private void tmr_PCSX2Check_Tick(object sender, EventArgs e)
         {
-            Process[] pcsx2 = Process.GetProcessesByName(PCSX2PROCESSNAME);
-
-            if (pcsx2.Length > 0)
+            List<Process> pcsx2Array = Process.GetProcesses().Where(p => p.ProcessName.StartsWith(PCSX2PROCESSNAME)).ToList();
+            if (pcsx2Array.Count > 0)
             {
                 pcsx2Running = true;
+                pcsx2 = pcsx2Array[0];
             }
             else
             {
@@ -73,11 +77,27 @@ namespace fragment_shortcut_overlay
             {
                 if (pcsx2Running)
                 {
-                    m.OpenProcess(PCSX2PROCESSNAME + ".exe");
-                    if(GameHelper.GetCurrentElfFile(m.ReadByte(GameHelper.LUI_HEAP)) == GameHelper.CurrentElf.ONLINE)
+                    long pcsx2Offset = GameHelper.GetPcsx2Offset(pcsx2);
+                    IntPtr pcsx2Intptr = new IntPtr(pcsx2Offset);
+
+                    m = new MemorySharp(pcsx2);
+                    
+                    int luiHeap = 0;
+                    try
                     {
-                        gGameOffset = m.ReadInt(GameHelper.ONLINE_PLAYER_POINTER) + 0x20000000;
-                        if (m.ReadByte(GameHelper.CONNECTED_TO_AS_ADDRESS) == 1)
+                        luiHeap = m.Read<byte>(IntPtr.Add(pcsx2Intptr,GameHelper.LUI_HEAP_OFFSET), false);
+                    }
+                    catch (Exception exception)
+                    {
+                        MessageBox.Show("Make sure the game is running before starting the application \n Closing");
+                        this.Close();
+                    }
+                    
+                    
+                    if(GameHelper.GetCurrentElfFile(luiHeap) == GameHelper.CurrentElf.ONLINE)
+                    {
+                        gGameOffset = m.Read<int>(IntPtr.Add(pcsx2Intptr,GameHelper.ONLINE_PLAYER_POINTER_OFFSET),false) + pcsx2Offset;
+                        if (m.Read<int>(IntPtr.Add(pcsx2Intptr,GameHelper.CONNECTED_TO_AS_ADDRESS_OFFSET),false) == 1)
                         {
                             var state = controller.GetState();
 
@@ -155,10 +175,10 @@ namespace fragment_shortcut_overlay
                             }
                         }
                     }
-                    if (GameHelper.GetCurrentElfFile(m.ReadByte(GameHelper.LUI_HEAP)) == GameHelper.CurrentElf.OFFLINE)
+                    if (GameHelper.GetCurrentElfFile(luiHeap) == GameHelper.CurrentElf.OFFLINE)
                     {
-                        gGameOffset = m.ReadInt(GameHelper.OFFLINE_PLAYER_POINTER) + 0x20000000;
-                        if (m.ReadInt(GameHelper.LOGGED_IN_OFFLINE_MODE) != 0)
+                        gGameOffset = m.Read<int>(IntPtr.Add(pcsx2Intptr,GameHelper.OFFLINE_PLAYER_POINTER_OFFSET),false) + pcsx2Offset;
+                        if (m.Read<int>(IntPtr.Add(pcsx2Intptr,GameHelper.LOGGED_IN_OFFLINE_MODE_OFFSET),false) != 0)
                         {
                             var state = controller.GetState();
 
@@ -249,31 +269,35 @@ namespace fragment_shortcut_overlay
         /// <param name="baseAddress"></param>
         /// <param name="offset"></param>
         /// <returns></returns>
-        private string CalculateNewAddress(string baseAddress, int offset)
+        private IntPtr CalculateNewAddress(string baseAddress, long offset)
         {
-            return (int.Parse(baseAddress, System.Globalization.NumberStyles.HexNumber) + offset).ToString("X8");
+            var test  = new IntPtr(int.Parse(baseAddress, System.Globalization.NumberStyles.HexNumber) + offset);
+
+            return test;
+            /*long valueOfPointer = baseAddress.ToInt64() + offset;
+            return new IntPtr(valueOfPointer);*/
         }
 
         private void processGameData(string cirTypeIDAddress, string triTypeIDAddress, string sqTypeIDAddress,string xTypeIDAddress,
             string cirCatIDAddress,string triCatIDAddress,string sqCatIDAddress,string xCatIDAddress,string cirIDAddress,string triIDAddress,
             string sqIDAddress,string xIDAddress,string cirMessageAddress,string triMessageAddress,string sqMessageAddress,string xMessageAddress)
         {
-            int circleTypeID = m.ReadByte(CalculateNewAddress(cirTypeIDAddress,gGameOffset));
-            int triangleTypeID = m.ReadByte(CalculateNewAddress(triTypeIDAddress,gGameOffset));
-            int squareTypeID = m.ReadByte(CalculateNewAddress(sqTypeIDAddress,gGameOffset));
-            int crossTypeID = m.ReadByte(CalculateNewAddress(xTypeIDAddress,gGameOffset));
-            string circleCategoryID = m.ReadByte(CalculateNewAddress(cirCatIDAddress,gGameOffset)).ToString("X1");
-            string triangleCategoryID = m.ReadByte(CalculateNewAddress(triCatIDAddress,gGameOffset)).ToString("X1");
-            string squareCategoryID = m.ReadByte(CalculateNewAddress(sqCatIDAddress,gGameOffset)).ToString("X1");
-            string crossCategoryID = m.ReadByte(CalculateNewAddress(xCatIDAddress,gGameOffset)).ToString("X1");
-            string circleID = m.Read2Byte(CalculateNewAddress(cirIDAddress,gGameOffset)).ToString("X4");
-            string triangleID = m.Read2Byte(CalculateNewAddress(triIDAddress,gGameOffset)).ToString("X4");
-            string squareID = m.Read2Byte(CalculateNewAddress(sqIDAddress,gGameOffset)).ToString("X4");
-            string crossID = m.Read2Byte(CalculateNewAddress(xIDAddress,gGameOffset)).ToString("X4");
-            string circleMessage = ByteConverstionHelper.converyBytesToSJIS(m.ReadBytes(CalculateNewAddress(cirMessageAddress,gGameOffset), 20));
-            string triangleMessag = ByteConverstionHelper.converyBytesToSJIS(m.ReadBytes(CalculateNewAddress(triMessageAddress,gGameOffset), 20));
-            string squareMessage = ByteConverstionHelper.converyBytesToSJIS(m.ReadBytes(CalculateNewAddress(sqMessageAddress,gGameOffset), 20));
-            string crossMessage = ByteConverstionHelper.converyBytesToSJIS(m.ReadBytes(CalculateNewAddress(xMessageAddress,gGameOffset), 20));
+            int circleTypeID = m.Read<byte>(CalculateNewAddress(cirTypeIDAddress,gGameOffset),false);
+            int triangleTypeID = m.Read<byte>(CalculateNewAddress(triTypeIDAddress,gGameOffset),false);
+            int squareTypeID = m.Read<byte>(CalculateNewAddress(sqTypeIDAddress,gGameOffset),false);
+            int crossTypeID = m.Read<byte>(CalculateNewAddress(xTypeIDAddress,gGameOffset),false);
+            string circleCategoryID = m.Read<byte>(CalculateNewAddress(cirCatIDAddress,gGameOffset),false).ToString("X1");
+            string triangleCategoryID = m.Read<byte>(CalculateNewAddress(triCatIDAddress,gGameOffset),false).ToString("X1");
+            string squareCategoryID = m.Read<byte>(CalculateNewAddress(sqCatIDAddress,gGameOffset),false).ToString("X1");
+            string crossCategoryID = m.Read<byte>(CalculateNewAddress(xCatIDAddress,gGameOffset),false).ToString("X1");
+            string circleID = m.Read<short>(CalculateNewAddress(cirIDAddress,gGameOffset),false).ToString("X4");
+            string triangleID = m.Read<short>(CalculateNewAddress(triIDAddress,gGameOffset),false).ToString("X4");
+            string squareID = m.Read<short>(CalculateNewAddress(sqIDAddress,gGameOffset),false).ToString("X4");
+            string crossID = m.Read<short>(CalculateNewAddress(xIDAddress,gGameOffset),false).ToString("X4");
+            string circleMessage = ByteConverstionHelper.converyBytesToSJIS(m.Read<byte>(CalculateNewAddress(cirMessageAddress,gGameOffset), 20,false));
+            string triangleMessag = ByteConverstionHelper.converyBytesToSJIS(m.Read<byte>(CalculateNewAddress(triMessageAddress,gGameOffset), 20,false));
+            string squareMessage = ByteConverstionHelper.converyBytesToSJIS(m.Read<byte>(CalculateNewAddress(sqMessageAddress,gGameOffset), 20,false));
+            string crossMessage = ByteConverstionHelper.converyBytesToSJIS(m.Read<byte>(CalculateNewAddress(xMessageAddress,gGameOffset), 20,false));
             ShortCutIDModel SCIDM;
 
             // 1 = Spell, 2 = Item, 0 = Message
@@ -356,7 +380,7 @@ namespace fragment_shortcut_overlay
         }
         private void tmr_AdjustWindow_Tick(object sender, EventArgs e)
         {
-            Process[] proc = Process.GetProcessesByName(PCSX2PROCESSNAME);
+            List<Process> proc = Process.GetProcesses().Where(p => p.ProcessName.StartsWith(PCSX2PROCESSNAME)).ToList();
             foreach (Process p in proc)
             {
                 IntPtr handle = p.MainWindowHandle;
