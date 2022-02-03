@@ -10,4 +10,5 @@ Start PCSX2 and then start the program. Once you are online and in a server you 
 
 # Thanks to
 NCDyson for properly handling different versions of the game and Single player
+
 Zackmon for adding 64bit PCSX2 support and moving the project over to using MemorySharp
