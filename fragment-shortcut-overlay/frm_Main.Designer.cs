@@ -28,177 +28,180 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
-            this.tmr_ReadPad = new System.Windows.Forms.Timer(this.components);
-            this.tmr_PCSX2Check = new System.Windows.Forms.Timer(this.components);
-            this.lbl_Circle = new System.Windows.Forms.Label();
-            this.lbl_Triangle = new System.Windows.Forms.Label();
-            this.lbl_Square = new System.Windows.Forms.Label();
-            this.lbl_Cross = new System.Windows.Forms.Label();
-            this.tmr_AdjustWindow = new System.Windows.Forms.Timer(this.components);
-            this.pnl_Buttons = new System.Windows.Forms.Panel();
-            this.pct_TriggerButton = new System.Windows.Forms.PictureBox();
-            this.pictureBox2 = new System.Windows.Forms.PictureBox();
-            this.pictureBox4 = new System.Windows.Forms.PictureBox();
-            this.pictureBox3 = new System.Windows.Forms.PictureBox();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            this.pnl_Buttons.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pct_TriggerButton)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
-            this.SuspendLayout();
+            components = new System.ComponentModel.Container();
+            tmr_ReadPad = new System.Windows.Forms.Timer(components);
+            lbl_Circle = new System.Windows.Forms.Label();
+            lbl_Triangle = new System.Windows.Forms.Label();
+            lbl_Square = new System.Windows.Forms.Label();
+            lbl_Cross = new System.Windows.Forms.Label();
+            tmr_AdjustWindow = new System.Windows.Forms.Timer(components);
+            pnl_Buttons = new System.Windows.Forms.Panel();
+            pct_TriggerButton = new System.Windows.Forms.PictureBox();
+            pictureBox2 = new System.Windows.Forms.PictureBox();
+            pictureBox4 = new System.Windows.Forms.PictureBox();
+            pictureBox3 = new System.Windows.Forms.PictureBox();
+            pictureBox1 = new System.Windows.Forms.PictureBox();
+            pnl_Buttons.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)pct_TriggerButton).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)pictureBox4).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)pictureBox3).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
+            SuspendLayout();
             // 
             // tmr_ReadPad
             // 
-            this.tmr_ReadPad.Enabled = true;
-            this.tmr_ReadPad.Tick += new System.EventHandler(this.tmr_ReadPad_Tick);
-            // 
-            // tmr_PCSX2Check
-            // 
-            this.tmr_PCSX2Check.Enabled = true;
-            this.tmr_PCSX2Check.Interval = 1000;
-            this.tmr_PCSX2Check.Tick += new System.EventHandler(this.tmr_PCSX2Check_Tick);
+            tmr_ReadPad.Enabled = true;
+            tmr_ReadPad.Tick += tmr_ReadPad_Tick;
             // 
             // lbl_Circle
             // 
-            this.lbl_Circle.AutoSize = true;
-            this.lbl_Circle.BackColor = System.Drawing.Color.White;
-            this.lbl_Circle.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbl_Circle.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(192)))));
-            this.lbl_Circle.Location = new System.Drawing.Point(35, 39);
-            this.lbl_Circle.Name = "lbl_Circle";
-            this.lbl_Circle.Size = new System.Drawing.Size(52, 17);
-            this.lbl_Circle.TabIndex = 0;
-            this.lbl_Circle.Text = "label1";
+            lbl_Circle.AutoSize = true;
+            lbl_Circle.BackColor = System.Drawing.Color.White;
+            lbl_Circle.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            lbl_Circle.ForeColor = System.Drawing.Color.FromArgb(0, 0, 192);
+            lbl_Circle.Location = new System.Drawing.Point(41, 45);
+            lbl_Circle.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            lbl_Circle.Name = "lbl_Circle";
+            lbl_Circle.Size = new System.Drawing.Size(52, 17);
+            lbl_Circle.TabIndex = 0;
+            lbl_Circle.Text = "label1";
             // 
             // lbl_Triangle
             // 
-            this.lbl_Triangle.AutoSize = true;
-            this.lbl_Triangle.BackColor = System.Drawing.Color.White;
-            this.lbl_Triangle.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbl_Triangle.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(192)))));
-            this.lbl_Triangle.Location = new System.Drawing.Point(35, 69);
-            this.lbl_Triangle.Name = "lbl_Triangle";
-            this.lbl_Triangle.Size = new System.Drawing.Size(52, 17);
-            this.lbl_Triangle.TabIndex = 0;
-            this.lbl_Triangle.Text = "label1";
+            lbl_Triangle.AutoSize = true;
+            lbl_Triangle.BackColor = System.Drawing.Color.White;
+            lbl_Triangle.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            lbl_Triangle.ForeColor = System.Drawing.Color.FromArgb(0, 0, 192);
+            lbl_Triangle.Location = new System.Drawing.Point(41, 80);
+            lbl_Triangle.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            lbl_Triangle.Name = "lbl_Triangle";
+            lbl_Triangle.Size = new System.Drawing.Size(52, 17);
+            lbl_Triangle.TabIndex = 0;
+            lbl_Triangle.Text = "label1";
             // 
             // lbl_Square
             // 
-            this.lbl_Square.AutoSize = true;
-            this.lbl_Square.BackColor = System.Drawing.Color.White;
-            this.lbl_Square.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbl_Square.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(192)))));
-            this.lbl_Square.Location = new System.Drawing.Point(35, 99);
-            this.lbl_Square.Name = "lbl_Square";
-            this.lbl_Square.Size = new System.Drawing.Size(52, 17);
-            this.lbl_Square.TabIndex = 0;
-            this.lbl_Square.Text = "label1";
+            lbl_Square.AutoSize = true;
+            lbl_Square.BackColor = System.Drawing.Color.White;
+            lbl_Square.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            lbl_Square.ForeColor = System.Drawing.Color.FromArgb(0, 0, 192);
+            lbl_Square.Location = new System.Drawing.Point(41, 114);
+            lbl_Square.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            lbl_Square.Name = "lbl_Square";
+            lbl_Square.Size = new System.Drawing.Size(52, 17);
+            lbl_Square.TabIndex = 0;
+            lbl_Square.Text = "label1";
             // 
             // lbl_Cross
             // 
-            this.lbl_Cross.AutoSize = true;
-            this.lbl_Cross.BackColor = System.Drawing.Color.White;
-            this.lbl_Cross.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbl_Cross.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(192)))));
-            this.lbl_Cross.Location = new System.Drawing.Point(35, 129);
-            this.lbl_Cross.Name = "lbl_Cross";
-            this.lbl_Cross.Size = new System.Drawing.Size(52, 17);
-            this.lbl_Cross.TabIndex = 0;
-            this.lbl_Cross.Text = "label1";
+            lbl_Cross.AutoSize = true;
+            lbl_Cross.BackColor = System.Drawing.Color.White;
+            lbl_Cross.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            lbl_Cross.ForeColor = System.Drawing.Color.FromArgb(0, 0, 192);
+            lbl_Cross.Location = new System.Drawing.Point(41, 149);
+            lbl_Cross.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            lbl_Cross.Name = "lbl_Cross";
+            lbl_Cross.Size = new System.Drawing.Size(52, 17);
+            lbl_Cross.TabIndex = 0;
+            lbl_Cross.Text = "label1";
             // 
             // tmr_AdjustWindow
             // 
-            this.tmr_AdjustWindow.Enabled = true;
-            this.tmr_AdjustWindow.Interval = 1;
-            this.tmr_AdjustWindow.Tick += new System.EventHandler(this.tmr_AdjustWindow_Tick);
+            tmr_AdjustWindow.Enabled = true;
+            tmr_AdjustWindow.Interval = 1;
+            tmr_AdjustWindow.Tick += tmr_AdjustWindow_Tick;
             // 
             // pnl_Buttons
             // 
-            this.pnl_Buttons.Controls.Add(this.pct_TriggerButton);
-            this.pnl_Buttons.Controls.Add(this.pictureBox2);
-            this.pnl_Buttons.Controls.Add(this.pictureBox4);
-            this.pnl_Buttons.Controls.Add(this.lbl_Circle);
-            this.pnl_Buttons.Controls.Add(this.pictureBox3);
-            this.pnl_Buttons.Controls.Add(this.lbl_Triangle);
-            this.pnl_Buttons.Controls.Add(this.lbl_Square);
-            this.pnl_Buttons.Controls.Add(this.pictureBox1);
-            this.pnl_Buttons.Controls.Add(this.lbl_Cross);
-            this.pnl_Buttons.Location = new System.Drawing.Point(0, 2);
-            this.pnl_Buttons.Name = "pnl_Buttons";
-            this.pnl_Buttons.Size = new System.Drawing.Size(176, 152);
-            this.pnl_Buttons.TabIndex = 2;
-            this.pnl_Buttons.Visible = false;
+            pnl_Buttons.Controls.Add(pct_TriggerButton);
+            pnl_Buttons.Controls.Add(pictureBox2);
+            pnl_Buttons.Controls.Add(pictureBox4);
+            pnl_Buttons.Controls.Add(lbl_Circle);
+            pnl_Buttons.Controls.Add(pictureBox3);
+            pnl_Buttons.Controls.Add(lbl_Triangle);
+            pnl_Buttons.Controls.Add(lbl_Square);
+            pnl_Buttons.Controls.Add(pictureBox1);
+            pnl_Buttons.Controls.Add(lbl_Cross);
+            pnl_Buttons.Location = new System.Drawing.Point(0, 2);
+            pnl_Buttons.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            pnl_Buttons.Name = "pnl_Buttons";
+            pnl_Buttons.Size = new System.Drawing.Size(205, 175);
+            pnl_Buttons.TabIndex = 2;
+            pnl_Buttons.Visible = false;
             // 
             // pct_TriggerButton
             // 
-            this.pct_TriggerButton.Location = new System.Drawing.Point(6, 5);
-            this.pct_TriggerButton.Name = "pct_TriggerButton";
-            this.pct_TriggerButton.Size = new System.Drawing.Size(34, 21);
-            this.pct_TriggerButton.TabIndex = 3;
-            this.pct_TriggerButton.TabStop = false;
+            pct_TriggerButton.Location = new System.Drawing.Point(7, 6);
+            pct_TriggerButton.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            pct_TriggerButton.Name = "pct_TriggerButton";
+            pct_TriggerButton.Size = new System.Drawing.Size(40, 24);
+            pct_TriggerButton.TabIndex = 3;
+            pct_TriggerButton.TabStop = false;
             // 
             // pictureBox2
             // 
-            this.pictureBox2.Image = global::fragment_shortcut_overlay.Properties.Resources.circle;
-            this.pictureBox2.Location = new System.Drawing.Point(5, 32);
-            this.pictureBox2.Name = "pictureBox2";
-            this.pictureBox2.Size = new System.Drawing.Size(24, 24);
-            this.pictureBox2.TabIndex = 1;
-            this.pictureBox2.TabStop = false;
+            pictureBox2.Image = Properties.Resources.circle;
+            pictureBox2.Location = new System.Drawing.Point(6, 37);
+            pictureBox2.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            pictureBox2.Name = "pictureBox2";
+            pictureBox2.Size = new System.Drawing.Size(28, 28);
+            pictureBox2.TabIndex = 1;
+            pictureBox2.TabStop = false;
             // 
             // pictureBox4
             // 
-            this.pictureBox4.Image = global::fragment_shortcut_overlay.Properties.Resources.square;
-            this.pictureBox4.Location = new System.Drawing.Point(5, 92);
-            this.pictureBox4.Name = "pictureBox4";
-            this.pictureBox4.Size = new System.Drawing.Size(24, 24);
-            this.pictureBox4.TabIndex = 1;
-            this.pictureBox4.TabStop = false;
+            pictureBox4.Image = Properties.Resources.square;
+            pictureBox4.Location = new System.Drawing.Point(6, 106);
+            pictureBox4.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            pictureBox4.Name = "pictureBox4";
+            pictureBox4.Size = new System.Drawing.Size(28, 28);
+            pictureBox4.TabIndex = 1;
+            pictureBox4.TabStop = false;
             // 
             // pictureBox3
             // 
-            this.pictureBox3.Image = global::fragment_shortcut_overlay.Properties.Resources.triangle;
-            this.pictureBox3.Location = new System.Drawing.Point(5, 62);
-            this.pictureBox3.Name = "pictureBox3";
-            this.pictureBox3.Size = new System.Drawing.Size(24, 24);
-            this.pictureBox3.TabIndex = 1;
-            this.pictureBox3.TabStop = false;
+            pictureBox3.Image = Properties.Resources.triangle;
+            pictureBox3.Location = new System.Drawing.Point(6, 72);
+            pictureBox3.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            pictureBox3.Name = "pictureBox3";
+            pictureBox3.Size = new System.Drawing.Size(28, 28);
+            pictureBox3.TabIndex = 1;
+            pictureBox3.TabStop = false;
             // 
             // pictureBox1
             // 
-            this.pictureBox1.Image = global::fragment_shortcut_overlay.Properties.Resources.x;
-            this.pictureBox1.Location = new System.Drawing.Point(5, 122);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(24, 24);
-            this.pictureBox1.TabIndex = 1;
-            this.pictureBox1.TabStop = false;
+            pictureBox1.Image = Properties.Resources.x;
+            pictureBox1.Location = new System.Drawing.Point(6, 141);
+            pictureBox1.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            pictureBox1.Name = "pictureBox1";
+            pictureBox1.Size = new System.Drawing.Size(28, 28);
+            pictureBox1.TabIndex = 1;
+            pictureBox1.TabStop = false;
             // 
             // frm_Main
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(182, 154);
-            this.Controls.Add(this.pnl_Buttons);
-            this.Name = "frm_Main";
-            this.Load += new System.EventHandler(this.frm_Main_Load);
-            this.pnl_Buttons.ResumeLayout(false);
-            this.pnl_Buttons.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pct_TriggerButton)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
-            this.ResumeLayout(false);
+            AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
+            AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            ClientSize = new System.Drawing.Size(212, 178);
+            Controls.Add(pnl_Buttons);
+            Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            Name = "frm_Main";
+            Load += frm_Main_Load;
+            pnl_Buttons.ResumeLayout(false);
+            pnl_Buttons.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)pct_TriggerButton).EndInit();
+            ((System.ComponentModel.ISupportInitialize)pictureBox2).EndInit();
+            ((System.ComponentModel.ISupportInitialize)pictureBox4).EndInit();
+            ((System.ComponentModel.ISupportInitialize)pictureBox3).EndInit();
+            ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
+            ResumeLayout(false);
 
         }
 
         #endregion
 
         private System.Windows.Forms.Timer tmr_ReadPad;
-        private System.Windows.Forms.Timer tmr_PCSX2Check;
         private System.Windows.Forms.Label lbl_Circle;
         private System.Windows.Forms.Label lbl_Triangle;
         private System.Windows.Forms.Label lbl_Square;

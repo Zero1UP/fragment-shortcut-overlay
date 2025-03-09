@@ -39,11 +39,12 @@
   
   
   <ItemGroup>
-    <PackageReference Include="MemorySharp_NoFASM" Version="1.2.0.2" />
+    <PackageReference Include="MemoryIO.Pcsx2" Version="1.0.3" />
     <PackageReference Include="Microsoft.CSharp" Version="4.7.0" />
     <PackageReference Include="SharpDX" Version="4.2.0" />
     <PackageReference Include="SharpDX.XInput" Version="4.2.0" />
     <PackageReference Include="System.Data.DataSetExtensions" Version="4.5.0" />
+    <PackageReference Include="System.Text.Encoding.CodePages" Version="9.0.2" />
   </ItemGroup>
   
 </Project>
