@@ -1,11 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using fragment_shortcut_overlay.Helpers;
-using Microsoft.Win32.SafeHandles;
+﻿using System.Collections.Generic;
 
 namespace fragment_shortcut_overlay
 {
