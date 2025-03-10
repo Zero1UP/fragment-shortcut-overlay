@@ -6,7 +6,7 @@ This currently supports all versions of the retail game and both single player a
 
 
 # How to use
-Start PCSX2 and then start the program. Once you are online and in a server you will be able to view your shortcuts by pressing L1,L2,R1,R2.
+Start PCSX2 and then start the program. Once you are loaded into the game you will be able to view your shortcuts by pressing L1,L2,R1,R2.
 
 # Thanks to
 NCDyson for properly handling different versions of the game and Single player
